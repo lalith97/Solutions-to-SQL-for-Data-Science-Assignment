@@ -1,0 +1,19 @@
+/*Find the best matching document to the keyword query "washington taxes treasury"
+>>>>Use with reuters.db<<<<<<
+*/
+
+create view queryview as 
+SELECT * from frequency 
+UNION 
+SELECT 'q' as docid, 'washington' as term, 1 as count 
+UNION
+SELECT 'q' as docid, 'taxes' as term, 1 as count
+UNION 
+SELECT 'q' as docid, 'treasury' as term, 1 as count;
+
+select count(*) from (select * from queryview);
+
+select a.docid, b.docid, sum(a.count*b.count)
+from queryview a, queryview b
+where a.docid='q' and a.term=b.term
+group by a.docid,b.docid;

@@ -1,0 +1,10 @@
+/*Finding similarity matrix using the formula S = DD'
+and the multiplication method seen in the previous query
+>>>>Use with reuters.db<<<<<
+*/
+
+select a.docid, b.docid, sum(a.count*b.count)
+from frequency a, frequency b
+where a.term=b.term
+group by a.docid, b.docid;
+
